@@ -26,21 +26,31 @@
         function appendData(postsData) {
             const mainContainer = document.getElementById("fetched-data");
             for (let i = 0; i < postsData.length; i++) {
-                const customDiv = document.createElement('div');
-                customDiv.setAttribute("class", "card-wrapper");
+                const cardWrapper = document.createElement('div');
+                cardWrapper.setAttribute("class", "card-wrapper");
 
-                const cardImage = document.createElement('div');
+                const cardImage = document.createElement('img');
                 cardImage.setAttribute("class", "card-image");
+                cardImage.setAttribute("src", "assets/phone-image1.png");
 
-                const cardTitle = document.createElement('div');
+                const cartBottomWrapper = document.createElement('div');
+                cartBottomWrapper.setAttribute("class", "card-bottom-wrapper");
+
+                const cardTitle = document.createElement('p');
                 cardTitle.setAttribute("class", "card-title");
 
+                const buyButton = document.createElement('img');
+                buyButton.setAttribute("class", "buy-button");
+                buyButton.setAttribute("src", "assets/cart/buyImage.png");
 
-                mainContainer.appendChild(customDiv);
+
+                mainContainer.appendChild(cardWrapper);
                 cardTitle.innerHTML = postsData[i].title;
 
-                customDiv.appendChild(cardImage);
-                customDiv.appendChild(cardTitle);
+                cardWrapper.appendChild(cardImage);
+                cardWrapper.appendChild(cartBottomWrapper);
+                cartBottomWrapper.appendChild(cardTitle);
+                cartBottomWrapper.appendChild(buyButton);
             }
         }
     </script>
