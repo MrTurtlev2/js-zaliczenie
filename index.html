@@ -59,11 +59,11 @@
 
             function mapShopList(addedElements) {
                 const listElement = document.getElementById("shop-list");
-
+                const cardTitle = document.createElement('p');
 
                 for (let i = 0; i < addedElements.length; i++) {
                     const slicedText = postsData[i].title.slice(0, 20);
-                    const cardTitle = document.createElement('p');
+
                     cardTitle.setAttribute("class", "title");
 
                     listElement.appendChild(cardTitle);
