@@ -96,6 +96,14 @@
             }
         }
 
+        function removeFromShopList(a) {
+
+            addedElements.splice(a, 1);
+            console.log(addedElements)
+            console.log(a)
+            // mapShopList()
+        }
+
 
         function mapShopList() {
             const shopList = document.getElementById("shop-list");
@@ -106,6 +114,7 @@
 
             deleteButton.setAttribute("class", "delete-button");
             deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
+            // deleteButton.onclick = function () {removeFromShopList()}
 
 
             listItemWrapper.setAttribute("class", "list-item-wrapper");
@@ -118,7 +127,7 @@
                 shopList.appendChild(listItemWrapper);
                 listItemWrapper.appendChild(cardTitle);
                 listItemWrapper.appendChild(deleteButton);
-
+                deleteButton.onclick = function () {removeFromShopList(addedElements[i].id)}
                 cardTitle.innerHTML = `[${i+1}]. ${addedElements[i].name}`;
             }
         }
