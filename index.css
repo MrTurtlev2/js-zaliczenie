@@ -42,11 +42,30 @@
 .card-title {
     width: 150px;
 }
+
 .buy-button {
     width: 40px;
     height: 40px;
+    padding: 5px;
+    border-radius: 12px;
 }
 .buy-button:hover {
     background-color: green;
     cursor: pointer;
+}
+.delete-button {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 12px;
+    margin-left: 10px;
+}
+.delete-button:hover {
+     background-color: red;
+     cursor: pointer;
+}
+.list-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

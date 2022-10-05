@@ -101,15 +101,23 @@
             const shopList = document.getElementById("shop-list");
             const listItemWrapper = document.createElement('div');
             const cardTitle = document.createElement('p');
+            const deleteButton = document.createElement('img');
+
+
+            deleteButton.setAttribute("class", "delete-button");
+            deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
 
 
             listItemWrapper.setAttribute("class", "list-item-wrapper");
             cardTitle.setAttribute("class", "element-title");
+            deleteButton.setAttribute("class", "delete-button");
+            deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
 
             for (let i = 0; i < addedElements.length; i++) {
 
                 shopList.appendChild(listItemWrapper);
                 listItemWrapper.appendChild(cardTitle);
+                listItemWrapper.appendChild(deleteButton);
 
                 cardTitle.innerHTML = `[${i+1}]. ${addedElements[i].name}`;
             }
