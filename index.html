@@ -11,7 +11,9 @@
 <div id="shop-wrapper">
     <div id="fetched-data"></div>
     <div id="shop-list"></div>
-    <script>
+</div>
+
+<script>
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(function (response) {
                 return response.json();
@@ -47,8 +49,13 @@
         function handleDisplayingStructure() {
             const mainContainer = document.getElementById("fetched-data");
 
+
             for (let i = 0; i < mappedElements.length; i++) {
 
+                const dataToSend = {
+                    id: mappedElements[i].id,
+                    name: mappedElements[i].name
+                }
 
                 const cardWrapper = document.createElement('div');
                 cardWrapper.setAttribute("class", "card-wrapper");
@@ -66,13 +73,12 @@
                 const buyButton = document.createElement('img');
                 buyButton.setAttribute("class", "buy-button");
                 buyButton.setAttribute("src", "assets/cart/buyImage.png");
-                // buyButton.onclick = function () {
-                //     addToShopList(i)
-                // }
+                buyButton.onclick = function () {
+                    addToShopList(dataToSend)
+                }
 
 
                 mainContainer.appendChild(cardWrapper);
-                // console.log(mappedElements[i].name);
                 cardTitle.innerHTML = mappedElements[i].name;
 
 
@@ -105,16 +111,13 @@
         //
         //
         //
-        // function addToShopList(title) {
-        //
-        //     if (!addedElements.includes(title)) {
-        //         addedElements.push(title);
-        //         mapShopList(addedElements);
-        //     }
-        // }
+        function addToShopList(dataToSend) {
+            if (addedElements.indexOf(dataToSend) === -1) {
+                addedElements.push(dataToSend);
+            }
+        }
 
 
     </script>
-</div>
 </body>
 </html>
