@@ -88,32 +88,30 @@
                 cartBottomWrapper.appendChild(buyButton);
             }
         }
-        // console.log(mappedElements);
 
-        //
-        // function mapShopList(addedElements) {
-        //     const shopList = document.getElementById("shop-list");
-        //     const listItemWrapper = document.createElement('div');
-        //     const cardTitle = document.createElement('p');
-        //
-        //
-        //     listItemWrapper.setAttribute("class", "list-item-wrapper");
-        //     cardTitle.setAttribute("class", "element-title");
-        //
-        //     for (let i = 0; i < addedElements.length; i++) {
-        //
-        //         shopList.appendChild(listItemWrapper);
-        //         listItemWrapper.appendChild(cardTitle);
-        //
-        //         cardTitle.innerHTML = slicedText;
-        //     }
-        // }
-        //
-        //
-        //
         function addToShopList(dataToSend) {
             if (addedElements.indexOf(dataToSend) === -1) {
                 addedElements.push(dataToSend);
+                mapShopList()
+            }
+        }
+
+
+        function mapShopList() {
+            const shopList = document.getElementById("shop-list");
+            const listItemWrapper = document.createElement('div');
+            const cardTitle = document.createElement('p');
+
+
+            listItemWrapper.setAttribute("class", "list-item-wrapper");
+            cardTitle.setAttribute("class", "element-title");
+
+            for (let i = 0; i < addedElements.length; i++) {
+
+                shopList.appendChild(listItemWrapper);
+                listItemWrapper.appendChild(cardTitle);
+
+                cardTitle.innerHTML = addedElements[i].name;
             }
         }
 
