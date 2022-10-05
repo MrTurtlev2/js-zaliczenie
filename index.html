@@ -17,16 +17,41 @@
                 return response.json();
             })
             .then(function (postsData) {
-                appendData(postsData);
+                console.log('initial data' + postsData.title);
+                mapData(postsData);
             })
             .catch(function (error) {
                 console.log('error: ' + error);
             });
 
-        function appendData(postsData) {
-            const mainContainer = document.getElementById("fetched-data");
+        let slicedText;
+        const mappedElements = [];
+        const addedElements = [];
+
+        function mapData(postsData) {
             for (let i = 0; i < postsData.length; i++) {
-                const slicedText = postsData[i].title.slice(0, 20);
+
+                let itemObject = {id: null, name: null};
+                itemObject.id = postsData[i].id;
+                itemObject.name = postsData[i].title;
+
+                mappedElements.push(itemObject);
+            }
+        }
+
+
+        console.log(mappedElements);
+
+        function appendData(data) {
+            const mainContainer = document.getElementById("fetched-data");
+            for (let i = 0; i < mappedElements.length; i++) {
+                slicedText = data[i].title.slice(0, 20);
+
+                // const itemData = {
+                //     id: i,
+                //     title: slicedText
+                // }
+
 
                 const cardWrapper = document.createElement('div');
                 cardWrapper.setAttribute("class", "card-wrapper");
@@ -44,17 +69,22 @@
                 const buyButton = document.createElement('img');
                 buyButton.setAttribute("class", "buy-button");
                 buyButton.setAttribute("src", "assets/cart/buyImage.png");
-                buyButton.onclick = function () {addToShopList(slicedText)}
+                buyButton.onclick = function () {addToShopList(i)}
 
 
                 mainContainer.appendChild(cardWrapper);
-                cardTitle.innerHTML = slicedText;
+                console.log(slicedText);
+                cardTitle.innerHTML = i.toString();
+                // cardTitle.innerHTML = 'ddfdffdfdf';
 
                 cardWrapper.appendChild(cardImage);
                 cardWrapper.appendChild(cartBottomWrapper);
                 cartBottomWrapper.appendChild(cardTitle);
                 cartBottomWrapper.appendChild(buyButton);
             }
+
+            appendData(mappedElements);
+
 
             function mapShopList(addedElements) {
                 const shopList = document.getElementById("shop-list");
@@ -66,7 +96,6 @@
                 cardTitle.setAttribute("class", "element-title");
 
                 for (let i = 0; i < addedElements.length; i++) {
-                    const slicedText = postsData[i].title.slice(0, 20);
 
                     shopList.appendChild(listItemWrapper);
                     listItemWrapper.appendChild(cardTitle);
@@ -75,7 +104,7 @@
                 }
             }
 
-            const addedElements = [];
+
 
             function addToShopList(title) {
 
