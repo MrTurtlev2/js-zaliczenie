@@ -57,18 +57,20 @@
             }
 
             function mapShopList(addedElements) {
-                const listElement = document.getElementById("shop-list");
-
-                
+                const shopList = document.getElementById("shop-list");
+                const listItemWrapper = document.createElement('div');
                 const cardTitle = document.createElement('p');
-                cardTitle.setAttribute("class", "title");
+
+
+                listItemWrapper.setAttribute("class", "list-item-wrapper");
+                cardTitle.setAttribute("class", "element-title");
 
                 for (let i = 0; i < addedElements.length; i++) {
                     const slicedText = postsData[i].title.slice(0, 20);
 
+                    shopList.appendChild(listItemWrapper);
+                    listItemWrapper.appendChild(cardTitle);
 
-
-                    listElement.appendChild(cardTitle);
                     cardTitle.innerHTML = slicedText;
                 }
             }
