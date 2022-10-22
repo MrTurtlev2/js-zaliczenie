@@ -28,6 +28,7 @@
 
         const mappedElements = [];
         const addedElements = [];
+        const shopList = document.getElementById("shop-list");
 
         function mapData(postsData) {
             for (let i = 0; i < postsData.length; i++) {
@@ -97,17 +98,19 @@
         }
 
         function removeFromShopList(itemToRemove) {
+
             const indexInArray = addedElements.indexOf(itemToRemove);
             if (indexInArray > -1) {
                 addedElements.splice(indexInArray, 1);
-                console.log(addedElements)
-                // mapShopList()
             }
+            shopList.innerHTML = '';
+            mapShopList();
+
+
         }
 
 
         function mapShopList() {
-            const shopList = document.getElementById("shop-list");
             const listItemWrapper = document.createElement('div');
             const cardTitle = document.createElement('p');
             const deleteButton = document.createElement('img');
@@ -115,7 +118,6 @@
 
             deleteButton.setAttribute("class", "delete-button");
             deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
-            // deleteButton.onclick = function () {removeFromShopList()}
 
 
             listItemWrapper.setAttribute("class", "list-item-wrapper");
