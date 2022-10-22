@@ -96,12 +96,13 @@
             }
         }
 
-        function removeFromShopList(a) {
-
-            addedElements.splice(a, 1);
-            console.log(addedElements)
-            console.log(a)
-            // mapShopList()
+        function removeFromShopList(itemToRemove) {
+            const indexInArray = addedElements.indexOf(itemToRemove);
+            if (indexInArray > -1) {
+                addedElements.splice(indexInArray, 1);
+                console.log(addedElements)
+                // mapShopList()
+            }
         }
 
 
@@ -127,7 +128,7 @@
                 shopList.appendChild(listItemWrapper);
                 listItemWrapper.appendChild(cardTitle);
                 listItemWrapper.appendChild(deleteButton);
-                deleteButton.onclick = function () {removeFromShopList(addedElements[i].id)}
+                deleteButton.onclick = function () {removeFromShopList(addedElements[i])}
                 cardTitle.innerHTML = `[${i+1}]. ${addedElements[i].name}`;
             }
         }
