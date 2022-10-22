@@ -35,10 +35,12 @@
             for (let i = 0; i < postsData.length; i++) {
 
                 const slicedText = postsData[i].title.slice(0, 20);
+                const randomNumber = Math.floor(Math.random() * 3 + 1);
 
-                let itemObject = {id: null, name: null};
+                let itemObject = {id: null, name: null, imageId: null};
                 itemObject.id = postsData[i].id;
                 itemObject.name = slicedText;
+                itemObject.imageId = randomNumber;
 
                 mappedElements.push(itemObject);
             }
@@ -54,11 +56,10 @@
 
             for (let i = 0; i < mappedElements.length; i++) {
 
-                const randomNumber = Math.floor(Math.random() * 3 + 1);
-
                 const dataToSend = {
                     id: mappedElements[i].id,
-                    name: mappedElements[i].name
+                    name: mappedElements[i].name,
+                    imageId: mappedElements[i].imageId
                 }
 
                 const cardWrapper = document.createElement('div');
@@ -66,7 +67,7 @@
 
                 const cardImage = document.createElement('img');
                 cardImage.setAttribute("class", "card-image");
-                cardImage.setAttribute("src", `assets/products/systemImage${randomNumber}.png`);
+                cardImage.setAttribute("src", `assets/products/systemImage${mappedElements[i].imageId}.png`);
 
                 const cartBottomWrapper = document.createElement('div');
                 cartBottomWrapper.setAttribute("class", "card-bottom-wrapper");
@@ -96,7 +97,7 @@
         function addToShopList(dataToSend) {
             if (addedElements.indexOf(dataToSend) === -1) {
                 addedElements.push(dataToSend);
-                mapShopList()
+                mapShopList();
             }
         }
 
@@ -114,7 +115,9 @@
 
         function mapShopList() {
             const listItemWrapper = document.createElement('div');
+            const itemImage = document.createElement('img');
             const cardTitle = document.createElement('p');
+            const cardIndex = document.createElement('p');
             const deleteButton = document.createElement('img');
 
 
@@ -123,6 +126,7 @@
 
 
             listItemWrapper.setAttribute("class", "list-item-wrapper");
+            itemImage.setAttribute("class", "list-item-image");
             cardTitle.setAttribute("class", "element-title");
             deleteButton.setAttribute("class", "delete-button");
             deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
@@ -130,10 +134,17 @@
             for (let i = 0; i < addedElements.length; i++) {
 
                 shopList.appendChild(listItemWrapper);
+
+                listItemWrapper.appendChild(cardIndex);
+                listItemWrapper.appendChild(itemImage);
+                itemImage.setAttribute("src", `assets/products/systemImage${addedElements[i].imageId}.png`);
+
+
                 listItemWrapper.appendChild(cardTitle);
                 listItemWrapper.appendChild(deleteButton);
                 deleteButton.onclick = function () {removeFromShopList(addedElements[i])}
-                cardTitle.innerHTML = `[${i+1}]. ${addedElements[i].name}`;
+                cardTitle.innerHTML = `${addedElements[i].name}`;
+                cardIndex.innerHTML = `[${i+1}]. `;
             }
         }
 
