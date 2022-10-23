@@ -47,7 +47,10 @@
             handleDisplayingStructure();
         }
 
-
+        function displayProductDetails(dataToSave) {
+            localStorage.setItem("savedItem", `${JSON.stringify(dataToSave)}`);
+            window.location.href = './pages/itemPage.html';
+        }
 
 
         function handleDisplayingStructure() {
@@ -67,6 +70,9 @@
 
                 const cardImage = document.createElement('img');
                 cardImage.setAttribute("class", "card-image");
+                cardImage.onclick = function () {
+                    displayProductDetails(dataToSend)
+                }
                 cardImage.setAttribute("src", `assets/products/systemImage${mappedElements[i].imageId}.png`);
 
                 const cartBottomWrapper = document.createElement('div');
@@ -109,9 +115,7 @@
             }
             shopList.innerHTML = '';
             mapShopList();
-
         }
-
 
         function mapShopList() {
             const listItemWrapper = document.createElement('div');

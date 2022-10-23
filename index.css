@@ -32,7 +32,12 @@
     background-color: lightgrey;
 }
 .card-image {
-    width: 130px;
+    width: 100px;
+    transition: all 0.3s;
+}
+.card-image:hover {
+    cursor: pointer;
+    width: 120px;
 }
 .card-bottom-wrapper {
     display: flex;
