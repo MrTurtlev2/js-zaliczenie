@@ -23,13 +23,11 @@
     height: 80vh;
     padding: 20px 0 20px 0;
     background-color: #dfe7c9;
-
 }
 
 #total-cost-item {
     height: 20vh;
     width: 30vw;
-    background-color: yellow;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -37,6 +35,8 @@
     align-items: center;
     justify-content: center;
     font-size: 40px;
+    color: darkblue;
+    background-color: aquamarine;
 }
 
 .card-wrapper {
