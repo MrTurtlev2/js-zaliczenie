@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="index.css" rel="stylesheet">
     <title>Strona główna sklepu</title>
 </head>
 <body>
@@ -15,144 +15,154 @@
 
 <script>
 
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (postsData) {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (postsData) {
 
-                mapData(postsData);
-            })
-            .catch(function (error) {
-                console.log('error: ' + error);
-            });
+            mapData(postsData);
+        })
+        .catch(function (error) {
+            console.log('error: ' + error);
+        });
 
-        const mappedElements = [];
-        const addedElements = [];
-        const shopList = document.getElementById("shop-list");
+    const mappedElements = [];
+    const addedElements = [];
+    const shopList = document.getElementById("shop-list");
 
-        function mapData(postsData) {
-            for (let i = 0; i < postsData.length; i++) {
+    function mapData(postsData) {
+        for (let i = 0; i < postsData.length; i++) {
 
-                const slicedText = postsData[i].title.slice(0, 20);
-                const randomNumber = Math.floor(Math.random() * 3 + 1);
+            const slicedText = postsData[i].title.slice(0, 20);
+            const randomNumber = Math.floor(Math.random() * 3 + 1);
+            const randomPrice = parseFloat(Math.random().toFixed(2));
 
-                let itemObject = {id: null, name: null, imageId: null};
-                itemObject.id = postsData[i].id;
-                itemObject.name = slicedText;
-                itemObject.imageId = randomNumber;
+            let itemObject = {id: null, name: null, imageId: null, price: null};
+            itemObject.id = postsData[i].id;
+            itemObject.name = slicedText;
+            itemObject.imageId = randomNumber;
+            itemObject.price = randomPrice;
 
-                mappedElements.push(itemObject);
-            }
-            handleDisplayingStructure();
+            mappedElements.push(itemObject);
         }
+        handleDisplayingStructure();
+    }
 
-        function displayProductDetails(dataToSave) {
-            sessionStorage.setItem("savedItem", `${JSON.stringify(dataToSave)}`);
-            window.location.href = './pages/itemPage.html';
-        }
-
-
-        function handleDisplayingStructure() {
-            const mainContainer = document.getElementById("fetched-data");
+    function displayProductDetails(dataToSave) {
+        sessionStorage.setItem("savedItem", `${JSON.stringify(dataToSave)}`);
+        window.location.href = './pages/itemPage.html';
+    }
 
 
-            for (let i = 0; i < mappedElements.length; i++) {
-
-                const dataToSend = {
-                    id: mappedElements[i].id,
-                    name: mappedElements[i].name,
-                    imageId: mappedElements[i].imageId
-                }
-
-                const cardWrapper = document.createElement('div');
-                cardWrapper.setAttribute("class", "card-wrapper");
-
-                const cardImage = document.createElement('img');
-                cardImage.setAttribute("class", "card-image");
-                cardImage.onclick = function () {
-                    displayProductDetails(dataToSend)
-                }
-                cardImage.setAttribute("src", `assets/products/systemImage${mappedElements[i].imageId}.png`);
-
-                const cartBottomWrapper = document.createElement('div');
-                cartBottomWrapper.setAttribute("class", "card-bottom-wrapper");
-
-                const cardTitle = document.createElement('p');
-                cardTitle.setAttribute("class", "card-title");
-
-                const buyButton = document.createElement('img');
-                buyButton.setAttribute("class", "buy-button");
-                buyButton.setAttribute("src", "assets/cart/buyImage.png");
-                buyButton.onclick = function () {
-                    addToShopList(dataToSend)
-                }
+    function handleDisplayingStructure() {
+        const mainContainer = document.getElementById("fetched-data");
 
 
-                mainContainer.appendChild(cardWrapper);
-                cardTitle.innerHTML = mappedElements[i].name;
+        for (let i = 0; i < mappedElements.length; i++) {
 
-
-                cardWrapper.appendChild(cardImage);
-                cardWrapper.appendChild(cartBottomWrapper);
-                cartBottomWrapper.appendChild(cardTitle);
-                cartBottomWrapper.appendChild(buyButton);
+            const dataToSend = {
+                id: mappedElements[i].id,
+                name: mappedElements[i].name,
+                imageId: mappedElements[i].imageId,
+                price: mappedElements[i].price
             }
-        }
 
-        function addToShopList(dataToSend) {
-            if (addedElements.indexOf(dataToSend) === -1) {
-                addedElements.push(dataToSend);
-                mapShopList();
+            const cardWrapper = document.createElement('div');
+            cardWrapper.setAttribute("class", "card-wrapper");
+
+            const cardImage = document.createElement('img');
+            cardImage.setAttribute("class", "card-image");
+            cardImage.onclick = function () {
+                displayProductDetails(dataToSend)
             }
-        }
+            cardImage.setAttribute("src", `assets/products/systemImage${mappedElements[i].imageId}.png`);
 
-        function removeFromShopList(itemToRemove) {
+            const cartBottomWrapper = document.createElement('div');
+            cartBottomWrapper.setAttribute("class", "card-bottom-wrapper");
 
-            const indexInArray = addedElements.indexOf(itemToRemove);
-            if (indexInArray > -1) {
-                addedElements.splice(indexInArray, 1);
+            const cardTitle = document.createElement('p');
+            cardTitle.setAttribute("class", "card-title");
+
+            const cardPrice = document.createElement('p');
+            cardPrice.setAttribute("class", "card-price");
+
+
+            const buyButton = document.createElement('img');
+            buyButton.setAttribute("class", "buy-button");
+            buyButton.setAttribute("src", "assets/cart/buyImage.png");
+            buyButton.onclick = function () {
+                addToShopList(dataToSend)
             }
-            shopList.innerHTML = '';
+
+
+            mainContainer.appendChild(cardWrapper);
+            cardTitle.innerHTML = mappedElements[i].name;
+            cardPrice.innerHTML = '$' + mappedElements[i].price;
+
+            cardWrapper.appendChild(cardImage);
+            cardWrapper.appendChild(cartBottomWrapper);
+            cartBottomWrapper.appendChild(cardTitle);
+            cartBottomWrapper.appendChild(cardPrice);
+            cartBottomWrapper.appendChild(buyButton);
+        }
+    }
+
+    function addToShopList(dataToSend) {
+        if (addedElements.indexOf(dataToSend) === -1) {
+            addedElements.push(dataToSend);
             mapShopList();
         }
+    }
 
-        function mapShopList() {
-            const listItemWrapper = document.createElement('div');
-            const itemImage = document.createElement('img');
-            const cardTitle = document.createElement('p');
-            const cardIndex = document.createElement('p');
-            const deleteButton = document.createElement('img');
+    function removeFromShopList(itemToRemove) {
 
-
-            deleteButton.setAttribute("class", "delete-button");
-            deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
-
-
-            listItemWrapper.setAttribute("class", "list-item-wrapper");
-            itemImage.setAttribute("class", "list-item-image");
-            cardTitle.setAttribute("class", "list-item-title");
-            deleteButton.setAttribute("class", "delete-button");
-            deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
-
-            for (let i = 0; i < addedElements.length; i++) {
-
-                shopList.appendChild(listItemWrapper);
-
-                listItemWrapper.appendChild(cardIndex);
-                listItemWrapper.appendChild(itemImage);
-                itemImage.setAttribute("src", `assets/products/systemImage${addedElements[i].imageId}.png`);
-
-
-                listItemWrapper.appendChild(cardTitle);
-                listItemWrapper.appendChild(deleteButton);
-                deleteButton.onclick = function () {removeFromShopList(addedElements[i])}
-                cardTitle.innerHTML = `${addedElements[i].name}`;
-                cardIndex.innerHTML = `[${i+1}]. `;
-            }
+        const indexInArray = addedElements.indexOf(itemToRemove);
+        if (indexInArray > -1) {
+            addedElements.splice(indexInArray, 1);
         }
+        shopList.innerHTML = '';
+        mapShopList();
+    }
+
+    function mapShopList() {
+        const listItemWrapper = document.createElement('div');
+        const itemImage = document.createElement('img');
+        const cardTitle = document.createElement('p');
+        const cardIndex = document.createElement('p');
+        const deleteButton = document.createElement('img');
 
 
-    </script>
+        deleteButton.setAttribute("class", "delete-button");
+        deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
+
+
+        listItemWrapper.setAttribute("class", "list-item-wrapper");
+        itemImage.setAttribute("class", "list-item-image");
+        cardTitle.setAttribute("class", "list-item-title");
+        deleteButton.setAttribute("class", "delete-button");
+        deleteButton.setAttribute("src", "assets/cart/trashBinImage.png");
+
+        for (let i = 0; i < addedElements.length; i++) {
+
+            shopList.appendChild(listItemWrapper);
+
+            listItemWrapper.appendChild(cardIndex);
+            listItemWrapper.appendChild(itemImage);
+            itemImage.setAttribute("src", `assets/products/systemImage${addedElements[i].imageId}.png`);
+
+
+            listItemWrapper.appendChild(cardTitle);
+            listItemWrapper.appendChild(deleteButton);
+            deleteButton.onclick = function () {
+                removeFromShopList(addedElements[i])
+            }
+            cardTitle.innerHTML = `${addedElements[i].name}`;
+            cardIndex.innerHTML = `[${i + 1}]. `;
+        }
+    }
+
+
+</script>
 </body>
 </html>

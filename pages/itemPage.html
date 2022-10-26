@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/itemStyles.css">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="../styles/itemStyles.css" rel="stylesheet">
     <title>Podgląd produktu</title>
 </head>
 <body onclose="clearStorage()">
@@ -15,79 +15,79 @@
     <div id="main-comments-wrapper">
     </div>
 </div>
-    <script>
-        const productData = JSON.parse(sessionStorage.getItem("savedItem"));
-        const commmentsArr = [];
+<script>
+    const productData = JSON.parse(sessionStorage.getItem("savedItem"));
+    const commmentsArr = [];
 
-        const prodWrapper = document.getElementById("product-wrapper");
-        const prodImage = document.createElement('img');
-        const prodTitle = document.createElement('p');
+    const prodWrapper = document.getElementById("product-wrapper");
+    const prodImage = document.createElement('img');
+    const prodTitle = document.createElement('p');
 
-        prodTitle.setAttribute("class", "product-title");
-        prodImage.setAttribute("class", "product-image");
-        prodImage.setAttribute("src", `../assets/products/systemImage${productData.imageId}.png`);
+    prodTitle.setAttribute("class", "product-title");
+    prodImage.setAttribute("class", "product-image");
+    prodImage.setAttribute("src", `../assets/products/systemImage${productData.imageId}.png`);
 
-        prodWrapper.appendChild(prodImage);
-        prodWrapper.appendChild(prodTitle);
+    prodWrapper.appendChild(prodImage);
+    prodWrapper.appendChild(prodTitle);
 
-        prodTitle.innerHTML = productData.name;
+    prodTitle.innerHTML = productData.name;
 
-        function clearStorage() {
-            sessionStorage.clear();
+    function clearStorage() {
+        sessionStorage.clear();
+    }
+
+    fetch('https://jsonplaceholder.typicode.com/posts/1/comments')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (postsData) {
+            mapCommentsData(postsData);
+        })
+        .catch(function (error) {
+            console.log('error: ' + error);
+        });
+
+    function mapCommentsData(postsData) {
+        for (let i = 0; i < postsData.length; i++) {
+
+            let itemObject = {id: null, email: null, name: null, body: null};
+            itemObject.id = postsData[i].id;
+            itemObject.email = postsData[i].email;
+            itemObject.name = postsData[i].name;
+            itemObject.body = postsData[i].body;
+
+            commmentsArr.push(itemObject);
         }
+        handleDisplayingStructure();
+    }
 
-        fetch('https://jsonplaceholder.typicode.com/posts/1/comments')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (postsData) {
-                mapCommentsData(postsData);
-            })
-            .catch(function (error) {
-                console.log('error: ' + error);
-            });
+    function handleDisplayingStructure() {
 
-        function mapCommentsData(postsData) {
-            for (let i = 0; i < postsData.length; i++) {
+        const maninCommentBlock = document.getElementById("main-comments-wrapper");
 
-                let itemObject = {id: null, email: null, name: null, body: null};
-                itemObject.id = postsData[i].id;
-                itemObject.email = postsData[i].email;
-                itemObject.name = postsData[i].name;
-                itemObject.body = postsData[i].body;
+        for (let i = 0; i < commmentsArr.length; i++) {
 
-                commmentsArr.push(itemObject);
-            }
-            handleDisplayingStructure();
+            const commentWrapper = document.createElement('div');
+            const commentAuthor = document.createElement('p');
+            const commentValue = document.createElement('p');
+
+
+            commentWrapper.setAttribute("class", "comment-wrapper");
+            commentAuthor.setAttribute("class", "comment-author");
+            commentValue.setAttribute("class", "comment-value");
+
+
+            maninCommentBlock.appendChild(commentWrapper);
+            commentWrapper.appendChild(commentAuthor)
+            commentWrapper.appendChild(commentValue)
+
+            commentAuthor.innerHTML = commmentsArr[i].email;
+            commentValue.innerHTML = commmentsArr[i].body;
+
+
         }
+    }
 
-        function handleDisplayingStructure() {
-            
-            const maninCommentBlock = document.getElementById("main-comments-wrapper");
-
-            for (let i = 0; i < commmentsArr.length; i++) {
-
-                const commentWrapper = document.createElement('div');
-                const commentAuthor = document.createElement('p');
-                const commentValue = document.createElement('p');
-
-
-                commentWrapper.setAttribute("class", "comment-wrapper");
-                commentAuthor.setAttribute("class", "comment-author");
-                commentValue.setAttribute("class", "comment-value");
-
-
-                maninCommentBlock.appendChild(commentWrapper);
-                commentWrapper.appendChild(commentAuthor)
-                commentWrapper.appendChild(commentValue)
-
-                commentAuthor.innerHTML = commmentsArr[i].email;
-                commentValue.innerHTML = commmentsArr[i].body;
-
-
-            }
-        }
-
-    </script>
+</script>
 </body>
 </html>

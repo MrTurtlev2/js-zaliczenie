@@ -2,16 +2,19 @@
     padding: 0;
     margin: 0;
 }
+
 #shop-wrapper {
     display: flex;
     flex-direction: row;
 }
+
 #fetched-data {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 70vw;
 }
+
 #shop-list {
     position: fixed;
     top: 0;
@@ -21,6 +24,7 @@
     padding: 20px 0 20px 0;
     background-color: #dfe7c9;
 }
+
 .card-wrapper {
     display: flex;
     flex-direction: column;
@@ -31,21 +35,31 @@
     padding: 10px 20px;
     background-color: lightgrey;
 }
+
 .card-image {
     width: 100px;
     transition: all 0.3s;
 }
+
 .card-image:hover {
     cursor: pointer;
     width: 120px;
 }
+
 .card-bottom-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 .card-title {
     width: 150px;
+}
+
+.card-price {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 5px;
 }
 
 .buy-button {
@@ -54,10 +68,12 @@
     padding: 5px;
     border-radius: 12px;
 }
+
 .buy-button:hover {
     background-color: green;
     cursor: pointer;
 }
+
 .delete-button {
     width: 30px;
     height: 30px;
@@ -65,10 +81,12 @@
     border-radius: 12px;
     margin-left: 10px;
 }
+
 .delete-button:hover {
-     background-color: red;
-     cursor: pointer;
+    background-color: red;
+    cursor: pointer;
 }
+
 .list-item-wrapper {
     display: flex;
     flex-direction: row;
@@ -76,15 +94,18 @@
     padding: 10px 20px;
     width: 100%;
 }
+
 .list-item-wrapper:hover {
     background-color: cadetblue;
     cursor: default;
 }
+
 .list-item-image {
     height: 30px;
     width: 30px;
     margin: 0 10px;
 }
+
 .list-item-title {
     width: 50%;
 }
